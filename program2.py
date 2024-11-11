@@ -1,5 +1,5 @@
 def decode_message(s: str, p: str) -> bool:
-    # Initialize a 2D DP table with False
+
     dp = [[False] * (len(s) + 1) for _ in range(len(p) + 1)]
     dp[0][0] = True
 
