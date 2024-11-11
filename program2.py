@@ -17,5 +17,5 @@ def decode_message(s: str, p: str) -> bool:
                 # '*' can match zero characters (dp[i-1][j]) or one or more characters (dp[i][j-1])
                 dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
             elif p[i - 1] == '?' or p[i - 1] == s[j - 1]:
-                # '?' matches any single character, or p[i-1] matches s[j-1]
+
                 dp[i][j] = dp[i - 1][j - 1]
