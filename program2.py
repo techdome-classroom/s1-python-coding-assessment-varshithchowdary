@@ -2,8 +2,7 @@ def decode_message(s: str, p: str) -> bool:
     # Initialize a 2D DP table with False
     dp = [[False] * (len(s) + 1) for _ in range(len(p) + 1)]
     dp[0][0] = True  # An empty pattern matches an empty message
-    
-    # Fill the first row for patterns starting with '*' that match an empty message
+
     for i in range(1, len(p) + 1):
         if p[i - 1] == '*':
             dp[i][0] = dp[i - 1][0]
