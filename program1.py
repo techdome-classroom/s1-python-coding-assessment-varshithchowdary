@@ -1,25 +1,25 @@
 class Solution:
     def getTotalIsles(self, grid: list[list[str]]) -> int:
-        if not grid:
-            return 0
+        r, c = len(grid), len(grid[0])
+        seen = set()
+        ans = 0
 
-        rows, cols = len(grid), len(grid[0])
-        visited = [[False] * cols for _ in range(rows)]
+        def help(i, j):
+            stack = [(i, j)]
+            while stack:
+                x, y = stack.pop()
+                if (x, y) in seen or grid[x][y] == 'W':
+                    continue
+                seen.add((x, y))
+                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < r and 0 <= ny < c and grid[nx][ny] == 'L':
+                        stack.append((nx, ny))
 
-        def dfs(r, c):
-            if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == 'W' or visited[r][c]:
-                return
-            visited[r][c] = True
-            dfs(r + 1, c)
-            dfs(r - 1, c)
-            dfs(r, c + 1)
-            dfs(r, c - 1)
-
-        island_count = 0
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 'L' and not visited[r][c]:
-                    dfs(r, c)
-                    island_count += 1
-
-        return island_count
+        for i in range(r):
+            for j in range(c):
+                if grid[i][j] == 'L' and (i, j) not in seen:
+                    help(i, j)
+                    ans += 1
+                    
+        return ans
